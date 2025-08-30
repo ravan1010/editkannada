@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mern-ffmpeg-backend
+    env: node
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    plan: free
+    region: oregon
+    packages:
+      - ffmpeg

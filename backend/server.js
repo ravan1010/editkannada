@@ -8,7 +8,7 @@ const cors = require('cors')
 
 if (ffmpegStatic) {
   ffmpeg.setFfmpegPath(ffmpegStatic);
-  console.log("Using ffmpeg-static:", ffmpegStatic);
+  console.log("Using ffmpeg-static:", ffmpegStatic); 
 } else {
   // fallback to system ffmpeg (if available)
   ffmpeg.setFfmpegPath('/usr/bin/ffmpeg');
