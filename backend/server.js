@@ -83,7 +83,7 @@ app.post('/upload', upload.fields([
       });
  
       console.log(outPath) 
-      console.log("ffmpeg path:", ffmpegPath);
+      // console.log("ffmpeg path:", ffmpegPath);
 
 
     // Step 1: Trim video 1
