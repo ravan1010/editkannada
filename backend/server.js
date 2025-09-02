@@ -28,7 +28,8 @@ const app = express();
 
 app.use(cors({
   origin: 'http://localhost:5173', // reflects request origin automatically
-  credentials: true
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
 }));
 
 const upload = multer({ dest: 'uploads/' });
