@@ -27,7 +27,7 @@ const inputaudio = path.resolve(__dirname,  'audio.mp3');
 const app = express();
 
 app.use(cors({
-  origin: true, // reflects request origin automatically
+  origin: 'http://localhost:5173', // reflects request origin automatically
   credentials: true
 }));
 
