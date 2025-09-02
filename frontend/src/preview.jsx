@@ -3,11 +3,11 @@ import { useState } from "react";
 function VideoPreview({ filename }) {
   const [videoUrl, setVideoUrl] = useState(null);
 
-  const from = "https://kannadaedit.onrender.com"
+  const server = "https://editkannada.onrender.com"
 
   const handlePreview = () => {
     // Direct video stream (not blob) so <video> can play
-    setVideoUrl(`${from}/api/preview/${filename}`);
+    setVideoUrl(`${server}/api/preview/${filename}`);
   };
 
   return (

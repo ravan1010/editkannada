@@ -2,9 +2,9 @@ import axios from "axios";
 
 function VideoDownload({ filename }) {
   const handleDownload = async () => {
-    const from = "https://kannadaedit.onrender.com"
+    const server = "https://editkannada.onrender.com"
     const response = await axios.get(
-      `${from}/api/preview/${filename}`,{withCredentials: true},
+      `${server}/api/preview/${filename}`,{withCredentials: true},
       { responseType: "blob" }
     );
 

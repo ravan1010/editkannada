@@ -10,7 +10,7 @@ function UploadVideos() {
   const [loading, setloading] = useState('');
   const [file, setfile] = useState('') ;
   // const l = "https://kannadaedit.onrender.com"
-  const l = "http://localhost:5173"
+  const server = "https://editkannada.onrender.com";
 
 
   const handleChange = (e) => {
@@ -34,7 +34,7 @@ function UploadVideos() {
       formData.append(`video${index + 1}`, file);
     });
 
-   await axios.post(`${l}/upload`,formData,{withCredentials: true},{
+   await axios.post(`${server}/upload`,formData,{withCredentials: true},{
       headers: { "Content-Type": "multipart/form-data" },
     })
     .then((res) => {
