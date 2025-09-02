@@ -220,6 +220,16 @@ app.post('/upload', upload.fields([
 
       console.log(concatOutput)
 
+       fs.unlinkSync(`outputs/filelist${inputname1}.txt`);
+      console.log('.txt file deleted');
+      
+      fs.unlinkSync(`outputs/${inputname1}`);
+      fs.unlinkSync(`outputs/${inputname2}`);
+      fs.unlinkSync(`outputs/${inputname3}`);
+      fs.unlinkSync(`uploads/${files.video1[0].filename}`);
+      fs.unlinkSync(`uploads/${files.video2[0].filename}`);
+      fs.unlinkSync(`uploads/${files.video3[0].filename}`)
+
     // // Step 4: Add audio
     const finalOutput = `outputs/final_${inputname1}`;
     await new Promise((resolve, reject) => {
@@ -233,37 +243,11 @@ app.post('/upload', upload.fields([
         .run();
     });
 
+    fs.unlinkSync(`outputs/merged_${inputname1}`);
+    console.log('.mp4 file deleted');  
     console.log(finalOutput)
 
     res.json({filename: inputname1});
-
-    // if()
-    // fs.rm('uploads', { recursive: true, force: true }, (err) => {
-    //   if (err) {
-    //     return console.error('Error:', err);
-    //   }
-    //   console.log('Folder deleted');
-    // });
-    
-    try {
-      fs.unlinkSync(`outputs/filelist${inputname1}.txt`);
-      console.log('.txt file deleted');
-      
-      fs.unlinkSync(`outputs/${inputname1}`);
-      fs.unlinkSync(`outputs/${inputname2}`);
-      fs.unlinkSync(`outputs/${inputname3}`);
-      fs.unlinkSync(`uploads/${files.video1[0].filename}`);
-      fs.unlinkSync(`uploads/${files.video2[0].filename}`);
-      fs.unlinkSync(`uploads/${files.video3[0].filename}`)
-
-
-
-      fs.unlinkSync(`outputs/merged_${inputname1}`);
-      console.log('.mp4 file deleted');       
-
-    } catch (err) {
-      console.error('Error:', err);
-    }
 
   } catch (err) {
     console.error(err);
