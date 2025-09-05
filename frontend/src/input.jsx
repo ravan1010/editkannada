@@ -9,45 +9,46 @@ function UploadVideos() {
   const [data, setdata] = useState('');
   const [loading, setloading] = useState('');
   const [file, setfile] = useState('') ;
-  // const l = "https://kannadaedit.onrender.com"
-  const server = "https://editkannada.onrender.com";
+  // const server = "https://editkannada.onrender.com";
+  const server = "http://localhost:5000";
 
-
-  const handleChange = (e) => {
-    // setVideos([...e.target.files]);
-      const value = ([...e.target.files]);
-
-     if(value.length > 3 || value.length < 3){
-           alert("You can only upload up to 3 files.");
-            e.target.value = ''; // Clear the input
-            return;
-        }else{
-            setVideos([...e.target.files]);
-              setfile("fileset")
-        }
+useEffect(() => {
+  const con = async () => {
+    try {
+      const res = await axios.get(`${server}/connect`, { withCredentials: true });
+      console.log(res.data.message);
+    } catch (err) {
+      console.error("Connection failed", err);
+    }
   };
-  const handleUpload = async () => {
-    if(file === "fileset"){
-      setloading("loading")
-    const formData = new FormData();
-    videos.forEach((file, index) => {
-      formData.append(`video${index + 1}`, file);
-    });
+  con();
+}, []);
 
-   await axios.post(`${server}/upload`,formData,{withCredentials: true},{
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-    .then((res) => {
-        setdata(res.data.filename)
-        console.log(res.data.filename)
-        setloading('complete')
-        
-    })
-  }else{
-    alert('upload video')
+
+
+ const handleUpload = async () => {
+  if (!file) {
+    alert("Please select an image first");
+    return;
   }
-  
-  };
+
+  setloading("loading");
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const res = await axios.post(`${server}/upload`, formData, {
+      withCredentials: true,
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+    setdata(res.data.filename);
+    setVideos(`${server}/api/preview/${res.data.filename}`)
+    setloading("complete");
+  } catch (err) {
+    console.error("Upload failed:", err);
+    setloading("error");
+  }
+};
  
 
   return (
@@ -57,20 +58,38 @@ function UploadVideos() {
       <div className='flex flex-col items-center md:w-200 w-full md:px-10 border-2 bg-black'>
         <div className='flex flex-col items-center ' >
         <div className='flex flex-col'>  
-          <label className="block md:mb-1 mb-2 text-sm font-medium text-gray-900 dark:text-white"  htmlFor="fileinput">Upload file</label>
-          <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" id="fileinput" multiple accept="video/mp4" onChange={handleChange} required />
+          <label className="block md:mb-1 mb-2 text-sm font-medium rounded-2xl border-2 px-6 m-4 py-1 text-gray-900 dark:text-white"  htmlFor="fileinput">Upload file</label>
+          <input className="hidden " 
+              id="fileinput"
+              type="file" 
+              accept="image/jpeg" 
+              onChange={(e) => setfile(e.target.files[0])} 
+            />
       </div>
       <button className='text-white px-9 md:mt-1 mt-2 bg-sky-500 hover:bg-sky-700 rounded-2 mb-2 rounded-3xl' onClick={handleUpload}>Submit</button>
       <h1 className="text-amber-50"> {loading} </h1>
+      {data && (
+          <div className="w-full mx-auto text-white"><VideoDownload filename={data} /> </div>
+      )}
+
       </div>
 
       <div>
         <hr className="border-2 w-full border-blue-900 mt-1" />
       
-        <div>
-          <h2>Final Video</h2>
-          <VideoPreview filename={data} />
-          <VideoDownload filename={data} />
+      
+        <div className="text-white w-full items-center flex-col ">
+          {data && (
+
+          <video
+          src={videos}
+          controls
+          width="400"
+          style={{ marginTop: "10px" }}
+        />
+        )}
+          {/* <VideoPreview filename={data} /> */}
+
         </div>
       </div>
       </div>

@@ -1,5 +1,5 @@
 import UploadVideos from './input'
-
+import './App.css'
 
 
 function App() {
