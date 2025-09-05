@@ -19,7 +19,7 @@ if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
 
 // CORS (explicit frontend domain)
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://editkannada.vercel.app',
   credentials: true,
 }));
 
