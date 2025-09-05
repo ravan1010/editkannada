@@ -2,8 +2,8 @@ import axios from "axios";
 
 function VideoDownload({ filename }) {
   const handleDownload = async () => {
-    // const server = "https://editkannada.onrender.com"
-      const server = "http://localhost:5000";
+    const server = "https://editkannada.onrender.com"
+      // const server = "http://localhost:5000";
 
     const response = await axios.get(
       `${server}/api/preview/${filename}`,{withCredentials: true},
@@ -21,7 +21,7 @@ function VideoDownload({ filename }) {
     link.remove();
   };
 
-  return <button onClick={handleDownload}>Download Video</button>;
+  return <button onClick={handleDownload} >Download Video</button>;
 }
 
 export default VideoDownload;

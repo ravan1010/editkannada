@@ -9,8 +9,8 @@ function UploadVideos() {
   const [data, setdata] = useState('');
   const [loading, setloading] = useState('');
   const [file, setfile] = useState('') ;
-  // const server = "https://editkannada.onrender.com";
-  const server = "http://localhost:5000";
+  const server = "https://editkannada.onrender.com";
+  // const server = "http://localhost:5000";
 
 useEffect(() => {
   const con = async () => {
@@ -33,6 +33,8 @@ useEffect(() => {
   }
 
   setloading("loading");
+  setVideos('')
+  setdata('')
   const formData = new FormData();
   formData.append("image", file);
 
@@ -69,7 +71,7 @@ useEffect(() => {
       <button className='text-white px-9 md:mt-1 mt-2 bg-sky-500 hover:bg-sky-700 rounded-2 mb-2 rounded-3xl' onClick={handleUpload}>Submit</button>
       <h1 className="text-amber-50"> {loading} </h1>
       {data && (
-          <div className="w-full mx-auto text-white"><VideoDownload filename={data} /> </div>
+          <div className="w-full px-auto my-3 block border-2 text-white"><VideoDownload filename={data} /></div>
       )}
 
       </div>
