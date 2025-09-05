@@ -88,7 +88,7 @@ app.get('/api/preview/:id', (req, res) => {
       }
     }, 100000);
   } else {
-    // res.json({ message: "File not found" });
+    res.json({ message: "File not found" });
   }
 });
 
